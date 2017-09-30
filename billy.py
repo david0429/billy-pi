@@ -4,8 +4,11 @@ from flask import request
 app = Flask(__name__)
 
 @app.route("/")
-def hello():
-    return "Hello World!"
+def web_interface():
+  html = open("web_interface.html")
+  response = html.read().replace('\n', '')
+  html.close()
+  return response
 
 @app.route("/set_speed")
 def set_speed():
