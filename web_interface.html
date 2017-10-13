@@ -2,29 +2,51 @@
 <html>
 <body>
 
-<h1>Custom Range Slider</h1>
-<p>Drag the slider to display the current value.</p>
+<h1>Web Browser Control</h1>
 
-<div id="slidecontainer">
-  <input type="range" min="-255" max="255" value="0" id="myRange">
-  <p>Value: <span id="demo"></span></p>
+<div id="slidecontainer1">
+  <p>Drive</p>
+  <input type="range" min="-255" max="255" value="0" id="range1">
+  <p>Value: <span id="data1"></span></p>
 </div>
+<br>
+<div id="slidecontainer2">
+  <p>Turn</p>
+  <input type="range" min="20" max="60" value="40" id="range2">
+  <p>Value: <span id="data2"></span></p>
+</div>
+<br>
 
 <script>
-var slider = document.getElementById("myRange");
-var output = document.getElementById("demo");
-output.innerHTML = slider.value;
+var slider1 = document.getElementById("range1");
+var slider2 = document.getElementById("range2");
+var output1 = document.getElementById("data1");
+var output2 = document.getElementById("data2");
+output1.innerHTML = slider1.value;
+output2.innerHTML = slider2.value;
 
-slider.oninput = function() {
-  output.innerHTML = slider.value;
+slider1.oninput = function() {
+  output1.innerHTML = slider1.value;
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
     }
   };
-  xhttp.open("GET", "http://192.168.2.103:5000/set_speed?speed=" + slider.value, true);
+  xhttp.open("GET", "http://192.168.2.90:5000/set_speed1?speed=" + slider1.value, true);
   xhttp.send();
-}
+};
+
+slider2.oninput = function() {
+  output2.innerHTML = slider2.value;
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+    }
+  };
+  xhttp.open("GET", "http://192.168.2.90:5000/set_speed2?speed=" + slider2.value, true);
+  xhttp.send();
+};
+
 </script>
 
 </body>

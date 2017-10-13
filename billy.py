@@ -8,17 +8,18 @@ import atexit
 app = Flask(__name__)
 
 mh = Adafruit_MotorHAT(addr=0x60)
-myMotor = mh.getMotor(3)
-myMotor.setSpeed(150)
-myMotor.run(Adafruit_MotorHAT.FORWARD)
-myMotor.run(Adafruit_MotorHAT.RELEASE)
-
+myMotor1 = mh.getMotor(1)
+myMotor1.setSpeed(150)
+myMotor1.run(Adafruit_MotorHAT.FORWARD)
+myMotor1.run(Adafruit_MotorHAT.RELEASE)
+myMotor2 = mh.getMotor(2)
+myMotor2.setSpeed(150)
+myMotor2.run(Adafruit_MotorHAT.FORWARD)
+myMotor2.run(Adafruit_MotorHAT.RELEASE)
 
 def turnOffMotors():
     mh.getMotor(1).run(Adafruit_MotorHAT.RELEASE)
     mh.getMotor(2).run(Adafruit_MotorHAT.RELEASE)
-    mh.getMotor(3).run(Adafruit_MotorHAT.RELEASE)
-    mh.getMotor(4).run(Adafruit_MotorHAT.RELEASE)
 
 atexit.register(turnOffMotors)
 
@@ -27,11 +28,12 @@ def web_interface():
   html = open("web_interface.html")
   response = html.read().replace('\n', '')
   html.close()
-  myMotor.setSpeed(0)
+  myMotor1.setSpeed(0)
+  myMotor2.setSpeed(40)
   return response
 
-@app.route("/set_speed")
-def set_speed():
+@app.route("/set_speed1")
+def set_speed1():
   speed = request.args.get("speed")
   print "Received " + str(speed)
 
@@ -39,8 +41,20 @@ def set_speed():
   if int(speed) < 0:
     direction = Adafruit_MotorHAT.BACKWARD
 
-  myMotor.run(direction)
-  myMotor.setSpeed(abs(int(speed)))
+  myMotor1.run(direction)
+  myMotor1.setSpeed(abs(int(speed)))
+
+  return "Received " + str(speed)
+
+@app.route("/set_speed2")
+def set_speed2():
+  speed = request.args.get("speed")
+  print "Received " + str(speed)
+
+  direction = Adafruit_MotorHAT.BACKWARD
+
+  myMotor2.run(direction)
+  myMotor2.setSpeed(abs(int(speed)))
 
   return "Received " + str(speed)
 
