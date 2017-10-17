@@ -32,7 +32,7 @@ slider1.oninput = function() {
     if (this.readyState == 4 && this.status == 200) {
     }
   };
-  xhttp.open("GET", "http://192.168.2.90:5000/set_speed1?speed=" + slider1.value, true);
+  xhttp.open("GET", "http://" + window.location.host + "/set_speed1?speed=" + slider1.value, true);
   xhttp.send();
 };
 
@@ -43,7 +43,7 @@ slider2.oninput = function() {
     if (this.readyState == 4 && this.status == 200) {
     }
   };
-  xhttp.open("GET", "http://192.168.2.90:5000/set_speed2?speed=" + slider2.value, true);
+  xhttp.open("GET", "http://" + window.location.host + "/set_speed2?speed=" + slider2.value, true);
   xhttp.send();
 };
 
