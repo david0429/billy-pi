@@ -7,6 +7,7 @@
 <div id="slidecontainer1">
   <p>Drive</p>
   <input type="range" min="-255" max="255" value="0" id="range1">
+  <input type="button" value="Stop" id="stop_button">
   <p>Value: <span id="data1"></span></p>
 </div>
 <br>
@@ -17,11 +18,18 @@
 </div>
 <br>
 
+<input type="button" value="Laugh" id="laugh_button">
+<input type="button" value="Game" id="game_button">
+<br>
+
 <script>
 var slider1 = document.getElementById("range1");
 var slider2 = document.getElementById("range2");
 var output1 = document.getElementById("data1");
 var output2 = document.getElementById("data2");
+var stop_button = document.getElementById("stop_button");
+var laugh_button = document.getElementById("laugh_button");
+var game_button = document.getElementById("game_button");
 output1.innerHTML = slider1.value;
 output2.innerHTML = slider2.value;
 
@@ -44,6 +52,31 @@ slider2.oninput = function() {
     }
   };
   xhttp.open("GET", "http://" + window.location.host + "/set_speed2?speed=" + slider2.value, true);
+  xhttp.send();
+};
+
+stop_button.onclick = function() {
+  slider1.value = 0;
+  slider1.oninput();
+};
+
+laugh_button.onclick = function() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+    }
+  };
+  xhttp.open("GET", "http://" + window.location.host + "/set_audio?sound=laugh", true);
+  xhttp.send();
+};
+
+game_button.onclick = function() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+    }
+  };
+  xhttp.open("GET", "http://" + window.location.host + "/set_audio?sound=game", true);
   xhttp.send();
 };
 

@@ -1,5 +1,6 @@
 from flask import Flask
 from flask import request
+from playsound import playsound
 from Adafruit_MotorHAT import Adafruit_MotorHAT, Adafruit_DCMotor
 
 import time
@@ -57,6 +58,18 @@ def set_speed2():
   myMotor2.setSpeed(abs(int(speed)))
 
   return "Received " + str(speed)
+
+@app.route("/set_audio")
+def set_audio():
+  sound = request.args.get("sound")
+  print "Received " + str(sound)
+  playSound(sound + ".mp3")
+  return "Received " + str(sound)
+
+def playSound(fileName):
+  print "Playing " + fileName
+  playsound("audio/" + fileName)
+  print "DONE"
 
 def main():
   app.run(host= '0.0.0.0')
