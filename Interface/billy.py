@@ -1,6 +1,6 @@
 from flask import Flask
 from flask import request
-from playsound import playsound
+import pygame
 from Adafruit_MotorHAT import Adafruit_MotorHAT, Adafruit_DCMotor
 
 import time
@@ -68,10 +68,12 @@ def set_audio():
 
 def playSound(fileName):
   print "Playing " + fileName
-  playsound("audio/" + fileName)
+  pygame.mixer.music.load("audio/" + fileName)
+  pygame.mixer.music.play()
   print "DONE"
 
 def main():
+  pygame.mixer.init()
   app.run(host= '0.0.0.0')
 
 main()
