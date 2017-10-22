@@ -8,7 +8,7 @@ import atexit
 
 app = Flask(__name__)
 
-mh = Adafruit_MotorHAT(addr=0x60)
+mh = Adafruit_MotorHAT(addr=0x60, 100)
 myMotor1 = mh.getMotor(1)
 myMotor1.setSpeed(150)
 myMotor1.run(Adafruit_MotorHAT.FORWARD)
