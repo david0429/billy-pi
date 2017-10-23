@@ -8,7 +8,7 @@ import atexit
 
 app = Flask(__name__)
 
-mh = Adafruit_MotorHAT(addr=0x60, 100)
+mh = Adafruit_MotorHAT(addr=0x60, freq=100)
 myMotor1 = mh.getMotor(1)
 myMotor1.setSpeed(150)
 myMotor1.run(Adafruit_MotorHAT.FORWARD)
@@ -65,19 +65,19 @@ def set_speed2():
 
   return "Received " + str(speed)
 
-##################################################
-@app.route("/set_speed3")
-def set_speed3():
-  speed = request.args.get("speed")
-  print "Received " + str(speed)
+@app.route("/open_mouth")
+def openMouth():
+  print "Opening"
+  myMotor3.run(Adafruit_MotorHAT.BACKWARD)
+  myMotor3.setSpeed(36)
+  return "Opened"
 
-  direction = Adafruit_MotorHAT.BACKWARD
-
-  myMotor3.run(direction)
-  myMotor3.setSpeed(abs(int(speed)))
-
-  return "Received " + str(speed)
-##################################################
+@app.route("/close_mouth")
+def closeMouth():
+  print "Closing"
+  myMotor3.run(Adafruit_MotorHAT.BACKWARD)
+  myMotor3.setSpeed(48)
+  return "Closed"
 
 @app.route("/set_audio")
 def set_audio():
@@ -90,6 +90,7 @@ def playSound(fileName):
   print "Playing " + fileName
   pygame.mixer.music.load("audio/" + fileName)
   pygame.mixer.music.play()
+  openMouth()
   print "DONE"
 
 def main():

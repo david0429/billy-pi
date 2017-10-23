@@ -14,20 +14,16 @@
 
 <div id="slidecontainer2">
   <p>Turn</p>
-  <input type="range" min="20" max="60" value="40" id="range2">
+  <input type="range" min="30" max="50" value="40" id="range2">
   <p>Value: <span id="data2"></span></p>
-</div>
-<br>
-
-<div id="slidecontainer3">
-  <p>Mouth</p>
-  <input type="range" min="20" max="60" value="40" id="range3">
-  <p>Value: <span id="data3"></span></p>
 </div>
 <br>
 
 <input type="button" value="Laugh" id="laugh_button">
 <input type="button" value="Game" id="game_button">
+<br><br>
+<input type="button" value="Open" id="open_button">
+<input type="button" value="Close" id="close_button">
 <br>
 
 <script>
@@ -36,13 +32,13 @@ var slider2 = document.getElementById("range2");
 var slider3 = document.getElementById("range3");
 var output1 = document.getElementById("data1");
 var output2 = document.getElementById("data2");
-var output2 = document.getElementById("data3");
 var stop_button = document.getElementById("stop_button");
 var laugh_button = document.getElementById("laugh_button");
 var game_button = document.getElementById("game_button");
+var open_button = document.getElementById("open_button");
+var close_button = document.getElementById("close_button");
 output1.innerHTML = slider1.value;
 output2.innerHTML = slider2.value;
-output3.innerHTML = slider3.value;
 
 slider1.oninput = function() {
   output1.innerHTML = slider1.value;
@@ -63,17 +59,6 @@ slider2.oninput = function() {
     }
   };
   xhttp.open("GET", "http://" + window.location.host + "/set_speed2?speed=" + slider2.value, true);
-  xhttp.send();
-};
-
-slider3.oninput = function() {
-  output3.innerHTML = slider3.value;
-  var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-    }
-  };
-  xhttp.open("GET", "http://" + window.location.host + "/set_speed3?speed=" + slider3.value, true);
   xhttp.send();
 };
 
@@ -99,6 +84,26 @@ game_button.onclick = function() {
     }
   };
   xhttp.open("GET", "http://" + window.location.host + "/set_audio?sound=game", true);
+  xhttp.send();
+};
+
+open_button.onclick = function() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+    }
+  };
+  xhttp.open("GET", "http://" + window.location.host + "/open_mouth", true);
+  xhttp.send();
+};
+
+close_button.onclick = function() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+    }
+  };
+  xhttp.open("GET", "http://" + window.location.host + "/close_mouth", true);
   xhttp.send();
 };
 
