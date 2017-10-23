@@ -17,10 +17,15 @@ myMotor2 = mh.getMotor(2)
 myMotor2.setSpeed(150)
 myMotor2.run(Adafruit_MotorHAT.FORWARD)
 myMotor2.run(Adafruit_MotorHAT.RELEASE)
+myMotor3 = mh.getMotor(3)
+myMotor3.setSpeed(150)
+myMotor3.run(Adafruit_MotorHAT.FORWARD)
+myMotor3.run(Adafruit_MotorHAT.RELEASE)
 
 def turnOffMotors():
     mh.getMotor(1).run(Adafruit_MotorHAT.RELEASE)
     mh.getMotor(2).run(Adafruit_MotorHAT.RELEASE)
+    mh.getMotor(3).run(Adafruit_MotorHAT.RELEASE)
 
 atexit.register(turnOffMotors)
 
@@ -31,6 +36,7 @@ def web_interface():
   html.close()
   myMotor1.setSpeed(0)
   myMotor2.setSpeed(40)
+  myMotor3.setSpeed(40)
   return response
 
 @app.route("/set_speed1")
@@ -58,6 +64,20 @@ def set_speed2():
   myMotor2.setSpeed(abs(int(speed)))
 
   return "Received " + str(speed)
+
+##################################################
+@app.route("/set_speed3")
+def set_speed3():
+  speed = request.args.get("speed")
+  print "Received " + str(speed)
+
+  direction = Adafruit_MotorHAT.BACKWARD
+
+  myMotor3.run(direction)
+  myMotor3.setSpeed(abs(int(speed)))
+
+  return "Received " + str(speed)
+##################################################
 
 @app.route("/set_audio")
 def set_audio():
